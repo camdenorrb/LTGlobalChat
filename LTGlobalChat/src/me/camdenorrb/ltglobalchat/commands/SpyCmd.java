@@ -16,12 +16,15 @@ import java.util.UUID;
  */
 public class SpyCmd implements CommandExecutor {
 
-    private final String enabledMsg = LTGlobalChat.getEnabled(), disabled = LTGlobalChat.getDisabled();
-    private final List<UUID> spyHolder = LTGlobalChat.getSpyHolder();
+    private final String enabledMsg, disabled;
+    private final List<UUID> spyHolder;
     private final String message;
 
-    public SpyCmd(String message) {
-        this.message = message;
+    public SpyCmd(LTGlobalChat ltGlobalChat) {
+        message = ltGlobalChat.getSpyMsg();
+        spyHolder = ltGlobalChat.getSpyHolder();
+        enabledMsg = ltGlobalChat.getEnabled();
+        disabled = ltGlobalChat.getDisabled();
     }
 
     @Override

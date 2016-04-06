@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -15,11 +16,15 @@ import java.util.UUID;
  */
 public class GlobalCmd implements CommandExecutor {
 
-    private final String enabledMsg = LTGlobalChat.getEnabled(), disabled = LTGlobalChat.getDisabled();
+    private final String enabledMsg, disabled;
+    private final List<UUID> players;
     private final String message;
 
-    public GlobalCmd(String message) {
-        this.message = message;
+    public GlobalCmd(LTGlobalChat ltGlobalChat) {
+        players = ltGlobalChat.getGlobalHolder();
+        enabledMsg = ltGlobalChat.getEnabled();
+        disabled = ltGlobalChat.getDisabled();
+        message = ltGlobalChat.getGlobalMsg();
     }
 
     @Override
@@ -28,10 +33,10 @@ public class GlobalCmd implements CommandExecutor {
         if(sender instanceof ConsoleCommandSender) return false;
         Player player = (Player) sender;
         UUID uuid = player.getUniqueId();
-        boolean hasPlayer = LTGlobalChat.getGlobalHolder().contains(uuid);
+        boolean hasPlayer = players.contains(uuid);
         String enabled = hasPlayer ? disabled : enabledMsg;
-        if (hasPlayer) LTGlobalChat.getGlobalHolder().remove(uuid);
-        else LTGlobalChat.getGlobalHolder().add(uuid);
+        if (hasPlayer) players.remove(uuid);
+        else players.add(uuid);
         sender.sendMessage(ChatUtils.format(message.replaceAll("%enabled", enabled)));
         return true;
     }

@@ -17,7 +17,12 @@ import java.util.UUID;
  */
 public class PlayerListen implements Listener {
 
-    private final List<UUID> globalHolder = LTGlobalChat.getGlobalHolder(), spyHolder = LTGlobalChat.getSpyHolder();
+    private final List<UUID> globalHolder, spyHolder;
+
+    public PlayerListen(LTGlobalChat ltGlobalChat) {
+        globalHolder = ltGlobalChat.getGlobalHolder();
+        spyHolder = ltGlobalChat.getSpyHolder();
+    }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onChat(AsyncPlayerChatEvent event) {

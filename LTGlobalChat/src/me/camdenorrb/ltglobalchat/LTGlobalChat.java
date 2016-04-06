@@ -4,7 +4,6 @@ import me.camdenorrb.ltglobalchat.commands.GlobalCmd;
 import me.camdenorrb.ltglobalchat.commands.SpyCmd;
 import me.camdenorrb.ltglobalchat.events.PlayerListen;
 import org.apache.commons.lang.Validate;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -16,50 +15,52 @@ import java.util.UUID;
  */
 public class LTGlobalChat extends JavaPlugin {
 
-    private static final List<UUID> globalHolder = new ArrayList<>(), spyHolder = new ArrayList<>();
-    private static String enabled, disabled;
-    private final Configuration config = getConfig();
-    private String spyMsg, globalMsg;
-    private LTGlobalChat ltGlobalChat = this;
-
-    public static List<UUID> getSpyHolder() {
-        return spyHolder;
-    }
-
-    public static List<UUID> getGlobalHolder() {
-        return globalHolder;
-    }
-
-    public static String getEnabled() {
-        return enabled;
-    }
-
-    public static String getDisabled() {
-        return disabled;
-    }
+    private final List<UUID> globalHolder = new ArrayList<>(), spyHolder = new ArrayList<>();
+    private final LTGlobalChat ltGlobalChat = this;
+    private String enabled, disabled, spyMsg, globalMsg;
 
     @Override
     public void onEnable() {
         initConfig();
-        getCommand("spy").setExecutor(new SpyCmd(spyMsg));
-        getCommand("global").setExecutor(new GlobalCmd(globalMsg));
-        getServer().getPluginManager().registerEvents(new PlayerListen(), ltGlobalChat);
+        getCommand("spy").setExecutor(new SpyCmd(ltGlobalChat));
+        getCommand("global").setExecutor(new GlobalCmd(ltGlobalChat));
+        getServer().getPluginManager().registerEvents(new PlayerListen(ltGlobalChat), ltGlobalChat);
     }
 
-    @Override
-    public void onDisable() {
-        ltGlobalChat = null;
-    }
-    
     private void initConfig() {
         saveDefaultConfig();
-        spyMsg = config.getString("SpyCommandMsg");
-        globalMsg = config.getString("GlobalCommandMsg");
-        enabled = config.getString("EnabledMsg");
-        disabled = config.getString("DisabledMsg");
+        spyMsg = getConfig().getString("SpyCommandMsg");
+        globalMsg = getConfig().getString("GlobalCommandMsg");
+        enabled = getConfig().getString("EnabledMsg");
+        disabled = getConfig().getString("DisabledMsg");
         Validate.notNull(spyMsg, "Spy message is not set!");
         Validate.notNull(globalMsg, "Global message is not set!");
         Validate.notNull(enabled, "Enabled message is not set!");
         Validate.notNull(disabled, "Disabled message is not set!");
     }
+
+    public List<UUID> getSpyHolder() {
+        return spyHolder;
+    }
+
+    public List<UUID> getGlobalHolder() {
+        return globalHolder;
+    }
+
+    public String getEnabled() {
+        return enabled;
+    }
+
+    public String getDisabled() {
+        return disabled;
+    }
+
+    public String getSpyMsg() {
+        return spyMsg;
+    }
+
+    public String getGlobalMsg() {
+        return globalMsg;
+    }
+    
 }
