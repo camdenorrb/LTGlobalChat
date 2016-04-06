@@ -37,7 +37,7 @@ public class GlobalCmd implements CommandExecutor {
         String enabled = hasPlayer ? disabled : enabledMsg;
         if (hasPlayer) players.remove(uuid);
         else players.add(uuid);
-        sender.sendMessage(ChatUtils.format(message.replaceAll("%enabled", enabled)));
+        sender.sendMessage(ChatUtils.format(message.replace("%enabled", enabled)));
         return true;
     }
 }
