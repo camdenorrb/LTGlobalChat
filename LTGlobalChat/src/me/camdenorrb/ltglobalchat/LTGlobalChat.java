@@ -30,9 +30,13 @@ public class LTGlobalChat extends JavaPlugin {
         return globalHolder;
     }
 
-    public static String getEnabled() {return enabled;}
+    public static String getEnabled() {
+        return enabled;
+    }
 
-    public static String getDisabled() {return disabled;}
+    public static String getDisabled() {
+        return disabled;
+    }
 
     @Override
     public void onEnable() {
@@ -46,7 +50,7 @@ public class LTGlobalChat extends JavaPlugin {
     public void onDisable() {
         ltGlobalChat = null;
     }
-
+    
     private void initConfig() {
         saveDefaultConfig();
         spyMsg = config.getString("SpyCommandMsg");
@@ -58,5 +62,4 @@ public class LTGlobalChat extends JavaPlugin {
         Validate.notNull(enabled, "Enabled message is not set!");
         Validate.notNull(disabled, "Disabled message is not set!");
     }
-
 }
