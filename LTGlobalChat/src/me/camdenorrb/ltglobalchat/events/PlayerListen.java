@@ -31,7 +31,6 @@ public class PlayerListen implements Listener {
         } while(iterator.hasNext());
     }
 
-
     @EventHandler
     public void onLeave(PlayerQuitEvent event) {
         UUID uuid = event.getPlayer().getUniqueId();
