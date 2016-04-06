@@ -1,0 +1,11 @@
+name: LTGlobalChat
+version: Kat1.7
+author: MrKitty_Cat
+main: me.camdenorrb.ltglobalchat.LTGlobalChat
+commands:
+    global:
+        usage: "/Global"
+        permission: global.toggle
+    spy:
+        usage: "/Spy"
+        permission: spy.toggle

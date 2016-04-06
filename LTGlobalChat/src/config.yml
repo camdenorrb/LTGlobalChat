@@ -1,0 +1,14 @@
+######################
+#   by MrKitty_Cat   #
+#       Meowth!      #
+######################
+
+# Use %enabled for where to put the Enabled and Disabled msg (message).
+
+SpyCommandMsg: "&dYour SpyMode is now %enabled!"
+
+GlobalCommandMsg: "&dYour GlobalChat is now %enabled!"
+
+EnabledMsg: "&aEnabled"
+
+DisabledMsg: "&cDisabled"
