@@ -16,15 +16,14 @@ import java.util.UUID;
 public class LTGlobalChat extends JavaPlugin {
 
     private final List<UUID> globalHolder = new ArrayList<>(), spyHolder = new ArrayList<>();
-    private final LTGlobalChat ltGlobalChat = this;
     private String enabled, disabled, spyMsg, globalMsg;
 
     @Override
     public void onEnable() {
         initConfig();
-        getCommand("spy").setExecutor(new SpyCmd(ltGlobalChat));
-        getCommand("global").setExecutor(new GlobalCmd(ltGlobalChat));
-        getServer().getPluginManager().registerEvents(new PlayerListen(ltGlobalChat), ltGlobalChat);
+        getCommand("spy").setExecutor(new SpyCmd(this));
+        getCommand("global").setExecutor(new GlobalCmd(this));
+        getServer().getPluginManager().registerEvents(new PlayerListen(this), this);
     }
 
     private void initConfig() {
@@ -62,5 +61,5 @@ public class LTGlobalChat extends JavaPlugin {
     public String getGlobalMsg() {
         return globalMsg;
     }
-    
+
 }
