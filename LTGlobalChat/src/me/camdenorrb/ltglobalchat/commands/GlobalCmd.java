@@ -24,7 +24,7 @@ public class GlobalCmd implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
-        
+
         if(sender instanceof ConsoleCommandSender) return false;
         Player player = (Player) sender;
         UUID uuid = player.getUniqueId();

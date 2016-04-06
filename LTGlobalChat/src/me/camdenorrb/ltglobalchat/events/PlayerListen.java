@@ -19,7 +19,6 @@ public class PlayerListen implements Listener {
 
     private final List<UUID> globalHolder = LTGlobalChat.getGlobalHolder(), spyHolder = LTGlobalChat.getSpyHolder();
 
-
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
