@@ -8,8 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -17,7 +17,7 @@ import java.util.UUID;
  */
 public class PlayerListen implements Listener {
 
-    private final List<UUID> globalHolder, spyHolder;
+    private final HashSet<UUID> globalHolder, spyHolder;
 
     public PlayerListen(LTGlobalChat ltGlobalChat) {
         globalHolder = ltGlobalChat.getGlobalHolder();

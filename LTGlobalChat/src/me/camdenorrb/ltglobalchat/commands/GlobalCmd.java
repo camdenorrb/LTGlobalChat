@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.UUID;
 
 /**
@@ -17,7 +17,7 @@ import java.util.UUID;
 public class GlobalCmd implements CommandExecutor {
 
     private final String enabledMsg, disabled;
-    private final List<UUID> players;
+    private final HashSet<UUID> players;
     private final String message;
 
     public GlobalCmd(LTGlobalChat ltGlobalChat) {

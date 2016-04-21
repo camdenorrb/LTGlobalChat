@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.UUID;
 
 /**
@@ -16,9 +16,8 @@ import java.util.UUID;
  */
 public class SpyCmd implements CommandExecutor {
 
-    private final String enabledMsg, disabled;
-    private final List<UUID> spyHolder;
-    private final String message;
+    private final String enabledMsg, disabled, message;
+    private final HashSet<UUID> spyHolder;
 
     public SpyCmd(LTGlobalChat ltGlobalChat) {
         message = ltGlobalChat.getSpyMsg();

@@ -6,8 +6,7 @@ import me.camdenorrb.ltglobalchat.events.PlayerListen;
 import org.apache.commons.lang.Validate;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.UUID;
 
 /**
@@ -15,7 +14,7 @@ import java.util.UUID;
  */
 public class LTGlobalChat extends JavaPlugin {
 
-    private final List<UUID> globalHolder = new ArrayList<>(), spyHolder = new ArrayList<>();
+    private final HashSet<UUID> globalHolder = new HashSet<>(), spyHolder = new HashSet<>();
     private String enabled, disabled, spyMsg, globalMsg;
 
     @Override
@@ -38,11 +37,11 @@ public class LTGlobalChat extends JavaPlugin {
         Validate.notNull(disabled, "Disabled message is not set!");
     }
 
-    public List<UUID> getSpyHolder() {
+    public HashSet<UUID> getSpyHolder() {
         return spyHolder;
     }
 
-    public List<UUID> getGlobalHolder() {
+    public HashSet<UUID> getGlobalHolder() {
         return globalHolder;
     }
 
