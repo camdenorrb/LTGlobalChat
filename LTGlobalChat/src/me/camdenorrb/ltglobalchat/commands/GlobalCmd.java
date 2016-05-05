@@ -17,11 +17,11 @@ import java.util.UUID;
 public class GlobalCmd implements CommandExecutor {
 
     private final String enabledMsg, disabled;
-    private final HashSet<UUID> players;
+    private final HashSet<UUID> globalHolder;
     private final String message;
 
     public GlobalCmd(LTGlobalChat ltGlobalChat) {
-        players = ltGlobalChat.getGlobalHolder();
+        globalHolder = ltGlobalChat.getGlobalHolder();
         enabledMsg = ltGlobalChat.getEnabled();
         disabled = ltGlobalChat.getDisabled();
         message = ltGlobalChat.getGlobalMsg();
@@ -33,10 +33,11 @@ public class GlobalCmd implements CommandExecutor {
         if(sender instanceof ConsoleCommandSender) return false;
         Player player = (Player) sender;
         UUID uuid = player.getUniqueId();
-        boolean hasPlayer = players.contains(uuid);
-        String enabled = hasPlayer ? disabled : enabledMsg;
-        if (hasPlayer) players.remove(uuid);
-        else players.add(uuid);
+        String enabled = disabled;
+        if (!globalHolder.remove(uuid)) {
+            globalHolder.add(uuid);
+            enabled = enabledMsg;
+        }
         sender.sendMessage(ChatUtils.format(message.replace("%enabled", enabled)));
         return true;
     }

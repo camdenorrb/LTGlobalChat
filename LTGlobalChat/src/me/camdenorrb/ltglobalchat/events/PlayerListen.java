@@ -27,8 +27,8 @@ public class PlayerListen implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        UUID worldUid = player.getWorld().getUID();
         if (globalHolder.contains(player.getUniqueId())) return;
+        UUID worldUid = player.getWorld().getUID();
         Iterator<Player> iterator = event.getRecipients().iterator();
         do {
             Player player1 = iterator.next();

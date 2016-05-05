@@ -28,13 +28,14 @@ public class SpyCmd implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
-        if(sender instanceof ConsoleCommandSender) return false;
+        if (sender instanceof ConsoleCommandSender) return false;
         Player player = (Player) sender;
         UUID uuid = player.getUniqueId();
-        boolean hasPlayer = spyHolder.contains(uuid);
-        String enabled = hasPlayer ? disabled : enabledMsg;
-        if (hasPlayer) spyHolder.remove(uuid);
-        else spyHolder.add(uuid);
+        String enabled = disabled;
+        if (!spyHolder.remove(uuid)) {
+            spyHolder.add(uuid);
+            enabled = enabledMsg;
+        }
         sender.sendMessage(ChatUtils.format(message.replace("%enabled", enabled)));
         return true;
     }
