@@ -8,7 +8,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.UUID;
 
 /**
@@ -35,6 +34,6 @@ public class PlayerListen implements Listener {
         Player player = event.getPlayer();
         if (globalHolder.contains(player.getUniqueId())) return;
         UUID worldUid = player.getWorld().getUID();
-        event.getRecipients().removeIf(player1 -> worldUid.equals(player1.getWorld().getUID()) && !spyHolder.contains(player1.getUniqueId());
+        event.getRecipients().removeIf(player1 -> worldUid.equals(player1.getWorld().getUID()) && !spyHolder.contains(player1.getUniqueId()));
     }
 }
