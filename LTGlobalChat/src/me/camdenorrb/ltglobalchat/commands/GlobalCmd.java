@@ -1,7 +1,5 @@
 package me.camdenorrb.ltglobalchat.commands;
 
-import me.camdenorrb.ltglobalchat.LTGlobalChat;
-import me.camdenorrb.ltglobalchat.utils.ChatUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,29 +14,27 @@ import java.util.UUID;
  */
 public class GlobalCmd implements CommandExecutor {
 
-    private final String enabledMsg, disabled;
+    private final String enabled, disabled;
     private final HashSet<UUID> globalHolder;
-    private final String message;
 
-    public GlobalCmd(LTGlobalChat ltGlobalChat) {
-        globalHolder = ltGlobalChat.getGlobalHolder();
-        enabledMsg = ltGlobalChat.getEnabled();
-        disabled = ltGlobalChat.getDisabled();
-        message = ltGlobalChat.getGlobalMsg();
+    public GlobalCmd(String enabled, String disabled, HashSet<UUID> globalHolder) {
+        this.enabled = enabled;
+        this.disabled = disabled;
+        this.globalHolder = globalHolder;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
 
-        if(sender instanceof ConsoleCommandSender) return false;
-        Player player = (Player) sender;
-        UUID uuid = player.getUniqueId();
-        String enabled = disabled;
+        if (sender instanceof ConsoleCommandSender) return false;
+        UUID uuid = ((Player) sender).getUniqueId();
+
         if (!globalHolder.remove(uuid)) {
             globalHolder.add(uuid);
-            enabled = enabledMsg;
-        }
-        sender.sendMessage(ChatUtils.format(message.replace("%enabled", enabled)));
+            sender.sendMessage(enabled);
+
+        } else sender.sendMessage(disabled);
+
         return true;
     }
 }

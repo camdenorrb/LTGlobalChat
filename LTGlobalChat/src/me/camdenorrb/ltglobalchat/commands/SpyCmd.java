@@ -1,7 +1,5 @@
 package me.camdenorrb.ltglobalchat.commands;
 
-import me.camdenorrb.ltglobalchat.LTGlobalChat;
-import me.camdenorrb.ltglobalchat.utils.ChatUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,27 +14,27 @@ import java.util.UUID;
  */
 public class SpyCmd implements CommandExecutor {
 
-    private final String enabledMsg, disabled, message;
     private final HashSet<UUID> spyHolder;
+    private final String enabled, disabled;
 
-    public SpyCmd(LTGlobalChat ltGlobalChat) {
-        message = ltGlobalChat.getSpyMsg();
-        spyHolder = ltGlobalChat.getSpyHolder();
-        enabledMsg = ltGlobalChat.getEnabled();
-        disabled = ltGlobalChat.getDisabled();
+    public SpyCmd(HashSet<UUID> spyHolder, String enabled, String disabled) {
+        this.enabled = enabled;
+        this.disabled = disabled;
+        this.spyHolder = spyHolder;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
+
         if (sender instanceof ConsoleCommandSender) return false;
-        Player player = (Player) sender;
-        UUID uuid = player.getUniqueId();
-        String enabled = disabled;
+        UUID uuid = ((Player) sender).getUniqueId();
+
         if (!spyHolder.remove(uuid)) {
             spyHolder.add(uuid);
-            enabled = enabledMsg;
-        }
-        sender.sendMessage(ChatUtils.format(message.replace("%enabled", enabled)));
+            sender.sendMessage(enabled);
+
+        } else sender.sendMessage(disabled);
+
         return true;
     }
 }

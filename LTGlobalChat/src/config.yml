@@ -3,12 +3,12 @@
 #       Meowth!      #
 ######################
 
-# Use %enabled for where to put the Enabled and Disabled msg (message).
+# If a value is not set, it will go to the default values.
 
-SpyCommandMsg: "&dYour SpyMode is now %enabled!"
+SpyEnabled: "&dYour SpyMode is now &aEnabled!"
 
-GlobalCommandMsg: "&dYour GlobalChat is now %enabled!"
+SpyDisabled: "&dYour SpyMode is now &cDisabled!"
 
-EnabledMsg: "&aEnabled"
+GlobalEnabled: "&dYour GlobalChat is now &aEnabled!"
 
-DisabledMsg: "&cDisabled"
+GlobalDisabled: "&dYour GlobalChat is now &cDisabled!"

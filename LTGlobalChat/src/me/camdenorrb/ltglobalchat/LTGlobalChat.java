@@ -3,7 +3,7 @@ package me.camdenorrb.ltglobalchat;
 import me.camdenorrb.ltglobalchat.commands.GlobalCmd;
 import me.camdenorrb.ltglobalchat.commands.SpyCmd;
 import me.camdenorrb.ltglobalchat.events.PlayerListen;
-import org.apache.commons.lang.Validate;
+import me.camdenorrb.ltglobalchat.utils.ChatUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
@@ -14,51 +14,47 @@ import java.util.UUID;
  */
 public class LTGlobalChat extends JavaPlugin {
 
+    private String spyEnabled, spyDisabled, globalEnabled, globalDisabled;
     private final HashSet<UUID> globalHolder = new HashSet<>(), spyHolder = new HashSet<>();
-    private String enabled, disabled, spyMsg, globalMsg;
 
     @Override
     public void onEnable() {
         initConfig();
-        getCommand("spy").setExecutor(new SpyCmd(this));
-        getCommand("global").setExecutor(new GlobalCmd(this));
-        getServer().getPluginManager().registerEvents(new PlayerListen(this), this);
+        getCommand("spy").setExecutor(new SpyCmd(spyHolder, spyEnabled, spyDisabled));
+        getCommand("global").setExecutor(new GlobalCmd(globalEnabled, globalDisabled, globalHolder));
+        getServer().getPluginManager().registerEvents(new PlayerListen(globalHolder, spyHolder), this);
     }
 
     private void initConfig() {
         saveDefaultConfig();
-        spyMsg = getConfig().getString("SpyCommandMsg");
-        globalMsg = getConfig().getString("GlobalCommandMsg");
-        enabled = getConfig().getString("EnabledMsg");
-        disabled = getConfig().getString("DisabledMsg");
-        Validate.notNull(spyMsg, "Spy message is not set!");
-        Validate.notNull(globalMsg, "Global message is not set!");
-        Validate.notNull(enabled, "Enabled message is not set!");
-        Validate.notNull(disabled, "Disabled message is not set!");
+        spyEnabled = ChatUtils.format(getConfig().getString("SpyEnabled", "&dYour SpyMode is now %toggle!"));
+        spyDisabled = ChatUtils.format(getConfig().getString("SpyDisabled", "&dYour SpyMode is now &cDisabled!"));
+        globalEnabled = ChatUtils.format(getConfig().getString("GlobalEnabled", "&dYour GlobalChat is now &aEnabled!"));
+        globalDisabled = ChatUtils.format(getConfig().getString("GlobalDisabled", "&dYour GlobalChat is now &cDisabled!"));
+    }
+
+    public String getSpyEnabled() {
+        return spyEnabled;
+    }
+
+    public String getSpyDisabled() {
+        return spyDisabled;
     }
 
     public HashSet<UUID> getSpyHolder() {
         return spyHolder;
     }
 
+    public String getGlobalEnabled() {
+        return globalEnabled;
+    }
+
+    public String getGlobalDisabled() {
+        return globalDisabled;
+    }
+
     public HashSet<UUID> getGlobalHolder() {
         return globalHolder;
-    }
-
-    public String getEnabled() {
-        return enabled;
-    }
-
-    public String getDisabled() {
-        return disabled;
-    }
-
-    public String getSpyMsg() {
-        return spyMsg;
-    }
-
-    public String getGlobalMsg() {
-        return globalMsg;
     }
 
 }
