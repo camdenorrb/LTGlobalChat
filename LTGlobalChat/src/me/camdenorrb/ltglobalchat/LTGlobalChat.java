@@ -27,7 +27,7 @@ public class LTGlobalChat extends JavaPlugin {
 
     private void initConfig() {
         saveDefaultConfig();
-        spyEnabled = ChatUtils.format(getConfig().getString("SpyEnabled", "&dYour SpyMode is now %toggle!"));
+        spyEnabled = ChatUtils.format(getConfig().getString("SpyEnabled", "&dYour SpyMode is now &aEnabled!"));
         spyDisabled = ChatUtils.format(getConfig().getString("SpyDisabled", "&dYour SpyMode is now &cDisabled!"));
         globalEnabled = ChatUtils.format(getConfig().getString("GlobalEnabled", "&dYour GlobalChat is now &aEnabled!"));
         globalDisabled = ChatUtils.format(getConfig().getString("GlobalDisabled", "&dYour GlobalChat is now &cDisabled!"));
