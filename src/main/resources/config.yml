@@ -3,12 +3,17 @@
 #       Meowth!      #
 ######################
 
+
 # If a value is not set, it will go to the default values.
 
+# Message for when SpyMode is enabled.
 SpyEnabled: "&dYour SpyMode is now &aEnabled!"
 
+# Message for when SpyMode is disabled.
 SpyDisabled: "&dYour SpyMode is now &cDisabled!"
 
+# Message for when GlobalChat is enabled.
 GlobalEnabled: "&dYour GlobalChat is now &aEnabled!"
 
+# Message for when GlobalChat is disabled.
 GlobalDisabled: "&dYour GlobalChat is now &cDisabled!"

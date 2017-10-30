@@ -9,32 +9,27 @@ import org.bukkit.entity.Player;
 import java.util.HashSet;
 import java.util.UUID;
 
-/**
- * Created by kingCam on 3/13/16.
- */
+import static me.camdenorrb.ltglobalchat.LTGlobalChat.getGlobalHolder;
+import static me.camdenorrb.ltglobalchat.LTGlobalChat.getLtConfig;
+
+
 public class GlobalCmd implements CommandExecutor {
-
-    private final String enabled, disabled;
-    private final HashSet<UUID> globalHolder;
-
-    public GlobalCmd(String enabled, String disabled, HashSet<UUID> globalHolder) {
-        this.enabled = enabled;
-        this.disabled = disabled;
-        this.globalHolder = globalHolder;
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
 
         if (sender instanceof ConsoleCommandSender) return false;
-        UUID uuid = ((Player) sender).getUniqueId();
+
+        final UUID uuid = ((Player) sender).getUniqueId();
+	    final HashSet<UUID> globalHolder = getGlobalHolder();
 
         if (!globalHolder.remove(uuid)) {
             globalHolder.add(uuid);
-            sender.sendMessage(enabled);
+            sender.sendMessage(getLtConfig().globalEnabledMsg());
 
-        } else sender.sendMessage(disabled);
+        } else sender.sendMessage(getLtConfig().globalDisabledMsg());
 
         return true;
     }
+
 }

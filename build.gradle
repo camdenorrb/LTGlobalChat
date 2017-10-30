@@ -1,0 +1,36 @@
+group 'me.camdenorrb'
+version 'Kat3.0'
+
+buildscript {
+
+	ext {
+		shadowVersion = '2.0.1'
+		spigotVersion = '1.12.2-R0.1-SNAPSHOT'
+	}
+
+	repositories { jcenter() }
+
+	dependencies {
+		classpath "com.github.jengelman.gradle.plugins:shadow:$shadowVersion"
+	}
+}
+
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly "org.spigotmc:spigot:$spigotVersion"
+    compileOnly "org.bukkit:craftbukkit:$spigotVersion"
+}
