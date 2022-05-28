@@ -1,25 +1,14 @@
-group 'me.camdenorrb'
-version 'Kat3.0'
-
-buildscript {
-
-	ext {
-		shadowVersion = '2.0.1'
-		spigotVersion = '1.18.2-R0.1-SNAPSHOT'
-	}
-
-	repositories { jcenter() }
-
-	dependencies {
-		classpath "com.github.jengelman.gradle.plugins:shadow:$shadowVersion"
-	}
+plugins {
+	id 'com.github.johnrengelman.shadow' version '7.1.2'
+	id 'java'
 }
 
+group 'me.camdenorrb'
+version 'Kat3.0'
 
 apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'com.github.johnrengelman.shadow'
-
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -34,5 +23,5 @@ repositories {
 }
 
 dependencies {
-    compileOnly "org.spigotmc:spigot:$spigotVersion"
+	compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
 }
