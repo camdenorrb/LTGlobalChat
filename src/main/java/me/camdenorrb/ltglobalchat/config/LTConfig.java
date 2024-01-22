@@ -1,18 +1,16 @@
 package me.camdenorrb.ltglobalchat.config;
 
-
 import org.bukkit.configuration.file.FileConfiguration;
 
 import static me.camdenorrb.ltglobalchat.struct.Constants.*;
 import static me.camdenorrb.ltglobalchat.utils.ChatUtils.format;
 
-
 public final class LTConfig {
 
-	private String spyEnabledMsg, spyDisabledMsg, globalEnabledMsg, globalDisabledMsg;
+	private final String spyEnabledMsg, spyDisabledMsg, globalEnabledMsg, globalDisabledMsg;
 
 
-	public LTConfig(String spyEnabledMsg, String spyDisabledMsg, String globalEnabledMsg, String globalDisabledMsg) {
+	public LTConfig(final String spyEnabledMsg, final String spyDisabledMsg, final String globalEnabledMsg, final String globalDisabledMsg) {
 		this.spyEnabledMsg = spyEnabledMsg;
 		this.spyDisabledMsg = spyDisabledMsg;
 		this.globalEnabledMsg = globalEnabledMsg;
@@ -20,7 +18,7 @@ public final class LTConfig {
 	}
 
 
-	public static LTConfig from(FileConfiguration config) {
+	public static LTConfig from(final FileConfiguration config) {
 
 		final String spyEnabledMsg = format(config.getString("SpyEnabled", DEFAULT_SPY_ENABLE_MSG));
 		final String spyDisabledMsg = format(config.getString("SpyDisabled", DEFAULT_SPY_DISABLE_MSG));
@@ -45,23 +43,6 @@ public final class LTConfig {
 
 	public String globalDisabledMsg() {
 		return globalDisabledMsg;
-	}
-
-
-	public void setSpyEnabledMsg(String spyEnabledMsg) {
-		this.spyEnabledMsg = spyEnabledMsg;
-	}
-
-	public void setSpyDisabledMsg(String spyDisabledMsg) {
-		this.spyDisabledMsg = spyDisabledMsg;
-	}
-
-	public void setGlobalEnabledMsg(String globalEnabledMsg) {
-		this.globalEnabledMsg = globalEnabledMsg;
-	}
-
-	public void setGlobalDisabledMsg(String globalDisabledMsg) {
-		this.globalDisabledMsg = globalDisabledMsg;
 	}
 
 }

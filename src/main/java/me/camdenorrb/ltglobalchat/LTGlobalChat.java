@@ -7,6 +7,7 @@ import me.camdenorrb.ltglobalchat.listeners.PlayerListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -14,8 +15,8 @@ public final class LTGlobalChat extends JavaPlugin {
 
     private static LTConfig ltConfig;
 
-	private static final HashSet<UUID> spyHolder = new HashSet<>();
-	private static final HashSet<UUID> globalHolder = new HashSet<>();
+	private final HashSet<UUID> spyHolder = new HashSet<>();
+	private final HashSet<UUID> globalHolder = new HashSet<>();
 
 
 	@Override
@@ -26,21 +27,26 @@ public final class LTGlobalChat extends JavaPlugin {
 
 	@Override
     public void onEnable() {
-        getCommand("spy").setExecutor(new SpyCmd());
-        getCommand("global").setExecutor(new GlobalCmd());
-        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        Objects.requireNonNull(getCommand("spy")).setExecutor(new SpyCmd(this));
+        Objects.requireNonNull(getCommand("global")).setExecutor(new GlobalCmd(this));
+        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
     }
 
+	@Override
+	public void onDisable() {
+		spyHolder.clear();
+		globalHolder.clear();
+	}
 
-	public static LTConfig getLtConfig() {
+	public LTConfig getLtConfig() {
 		return ltConfig;
 	}
 
-	public static HashSet<UUID> getSpyHolder() {
+	public HashSet<UUID> getSpyHolder() {
         return spyHolder;
     }
 
-    public static HashSet<UUID> getGlobalHolder() {
+    public HashSet<UUID> getGlobalHolder() {
         return globalHolder;
     }
 

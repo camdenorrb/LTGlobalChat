@@ -1,5 +1,6 @@
 package me.camdenorrb.ltglobalchat.listeners;
 
+import me.camdenorrb.ltglobalchat.LTGlobalChat;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -11,30 +12,33 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import static me.camdenorrb.ltglobalchat.LTGlobalChat.getGlobalHolder;
-import static me.camdenorrb.ltglobalchat.LTGlobalChat.getSpyHolder;
-
 
 public final class PlayerListener implements Listener {
 
+	private final LTGlobalChat plugin;
+
+	public PlayerListener(final LTGlobalChat plugin) {
+		this.plugin = plugin;
+	}
+
     @EventHandler
-    public void onLeave(PlayerQuitEvent event) {
+    public void onLeave(final PlayerQuitEvent event) {
 
         final UUID uuid = event.getPlayer().getUniqueId();
 
-        getSpyHolder().remove(uuid);
-        getGlobalHolder().remove(uuid);
+        plugin.getSpyHolder().remove(uuid);
+        plugin.getGlobalHolder().remove(uuid);
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-    public void onChat(AsyncPlayerChatEvent event) {
+    public void onChat(final AsyncPlayerChatEvent event) {
 
         final Player player = event.getPlayer();
         final UUID worldUID = player.getWorld().getUID();
 
-	    if (getGlobalHolder().contains(player.getUniqueId())) return;
+	    if (plugin.getGlobalHolder().contains(player.getUniqueId())) return;
 
-	    final HashSet<UUID> spyHolder = getSpyHolder();
+	    final HashSet<UUID> spyHolder = plugin.getSpyHolder();
 	    final Set<Player> recipients = event.getRecipients();
 
 	    recipients.removeIf(it -> !worldUID.equals(it.getWorld().getUID()) && !spyHolder.contains(it.getUniqueId()));
